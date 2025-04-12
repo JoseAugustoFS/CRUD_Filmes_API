@@ -12,4 +12,4 @@ RUN curl -o /wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for
 
 EXPOSE 3000
 
-CMD /wait-for-it.sh db:5432 -- npm start
+CMD /wait-for-it.sh ${DATABASE_HOST}:5432 -- npm start

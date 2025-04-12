@@ -1,34 +1,14 @@
-version: '3.8'
-
 services:
-  db:
-    image: postgres:15
-    container_name: postgres_container
-    restart: always
-    environment:
-      POSTGRES_DB: movies_db
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
+  appi:
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  api:
-    build: .
-    container_name: api_container
-    restart: always
-    depends_on:
-      - db
+      - 3000:3000
+    container_name: aws_api
     environment:
-      DB_DATABASE: movies_db
-      DB_USERNAME: admin
-      DB_PASSWORD: admin123
-      DB_HOST: db
-      DB_PORT: 5432
-      NODE_ENV: production
-    ports:
-      - "3000:3000"
-
-volumes:
-  postgres_data:
+      - DATABASE_HOST=aws-db.cqih0bsinsto.us-east-1.rds.amazonaws.com
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=Aula*infra
+      - DATABASE_NAME=aws_db
+      - DB_PORT=5432
+    build:
+      context: .
+      dockerfile: Dockerfile
